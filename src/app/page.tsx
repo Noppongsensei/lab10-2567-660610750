@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useState } from "react";
+import { cleanUser } from "@/libs/cleanUser";
 
 export default function RandomUserPage() {
   // annotate type for users state variable
@@ -18,6 +19,8 @@ export default function RandomUserPage() {
     setIsLoading(false);
     const users = resp.data.results;
 
+    const cleanedUsers = cleanUser(users);
+    setUsers(cleanedUsers);
     //Your code here
     //Process result from api response with map function. Tips use function from /src/libs/cleanUser
     //Then update state with function : setUsers(...)
@@ -42,7 +45,8 @@ export default function RandomUserPage() {
       {isLoading && (
         <p className="display-6 text-center fst-italic my-4">Loading ...</p>
       )}
-      {users && !isLoading && users.map(/*code map rendering UserCard here */)}
+      {users && !isLoading && users.map({/*code map rendering UserCard here */})}
+      
     </div>
   );
 }
